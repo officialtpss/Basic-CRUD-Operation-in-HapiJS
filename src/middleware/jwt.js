@@ -7,7 +7,7 @@ const validate = async (decoded, request) => {
   const users = mongoose.model('users');
   const data = await users.findOne({ email: decoded },{ _id: 1 }).exec();
   if(data) {
-    request.user = decoded;
+    request.userId = data._id;
     return { isValid: true };
   }else {
     return { isValid: false };
