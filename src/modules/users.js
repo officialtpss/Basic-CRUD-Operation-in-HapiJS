@@ -7,8 +7,7 @@
 const mongoose = require('mongoose');
 const {getErrorMessage} = require('./../handler/error.handler');
 const user = mongoose.model('users');
-const { getAccessToken } = require('./../middleware/jwt');
-const users = mongoose.model('users');
+const {getAccessToken} = require('./../middleware/jwt');
 
 // create new user
 const create = async (req, reply) => {
@@ -26,7 +25,7 @@ const create = async (req, reply) => {
 // login user
 const login = async (req, reply) => {
   try {
-    const data = await users.findOne(req.payload, { email: 1}).exec();
+    const data = await user.findOne(req.payload, { email: 1}).exec();
     if(!data) {
       return reply.response({message: 'invalid email or password'}).code(400);
     }else {
@@ -42,7 +41,7 @@ const login = async (req, reply) => {
 // get information of user
 const getUser = async (req, reply) => {
   try {
-    const data = await users.findOne({ _id: req.userId },{ password: 0 }).exec();
+    const data = await user.findOne({ _id: req.userId },{ password: 0 }).exec();
     return data;
   } catch(e) {
     return reply.response({
@@ -54,7 +53,7 @@ const getUser = async (req, reply) => {
 // update user information
 const updateUser = async (req, reply) => {
   try {
-    await users.updateOne({ _id: req.userId },req.payload).exec();
+    await user.updateOne({ _id: req.userId },req.payload).exec();
     return { ok :1};
   } catch(e) {
     return reply.response({
@@ -66,7 +65,7 @@ const updateUser = async (req, reply) => {
 // delete user
 const deleteUser = async (req, reply) => {
   try {
-    await users.deleteOne({ _id: req.userId }).exec();
+    await user.deleteOne({ _id: req.userId }).exec();
     return { ok :1};
   } catch(e) {
     return reply.response({
