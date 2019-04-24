@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 'use strict';
 const users = require('../modules/users');
 const Joi = require('joi');
@@ -53,5 +52,4 @@ module.exports = async (server) => {
       handler: users.deleteUser,
     },
   ]);
-
 };
