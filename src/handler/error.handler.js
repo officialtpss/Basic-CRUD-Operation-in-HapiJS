@@ -8,19 +8,18 @@ const getUniqueErrorMessage = (err) => {
     const fieldName = err.errmsg.indexOf('{ :');
     const lastIndex = err.errmsg.indexOf('}');
     // eslint-disable-next-line no-useless-escape
-    output = `${(err.errmsg.substring(fieldName, lastIndex).replace(/[&\/\\#,+()$~%'":*?<>{}]/g, '')).trim()  } already exists`;
+    output = `${(err.errmsg.substring(fieldName, lastIndex).replace(/[&\/\\#,+()$~%'":*?<>{}]/g, '')).trim()} already exists`;
 
   } catch (ex) {
     output = 'Unique field already exists';
   }
-
   return output;
 };
 
 /**
  * Get the error message from error object
  */
-exports.getErrorMessage = (err) =>{
+exports.getErrorMessage = (err) => {
   let message = err.message;
   if (err.code) {
     switch (err.code) {
