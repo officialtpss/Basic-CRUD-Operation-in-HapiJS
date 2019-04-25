@@ -1,9 +1,9 @@
-/* eslint-disable no-console */
 'use strict';
 
 const Hapi = require('hapi');
 const { JWT_SECRET }  = require('../constant');
 const { validate } = require('./../middleware/jwt');
+
 const init = async () => {
   const server = Hapi.server({
     port: 3000,
@@ -30,11 +30,13 @@ const init = async () => {
   server.auth.default('jwt');
   require('./../database/index')(server);
   await server.start();
+  /* eslint-disable no-console */
   console.log('Server running on %ss', server.info.uri);
   return server;
 };
 
 process.on('unhandledRejection', (err) => {
+  /* eslint-disable no-console */
   console.log(err);
   process.exit(1);
 });
