@@ -16,10 +16,12 @@ const init = async () => {
       },
     },
   });
+
   await server.register(require('hapi-auth-jwt2'));
 
   server.auth.strategy('jwt', 'jwt',
-    { key: JWT_SECRET,
+    {
+      key: JWT_SECRET,
       validate: await validate,
       verifyOptions: {
         ignoreExpiration: true,
